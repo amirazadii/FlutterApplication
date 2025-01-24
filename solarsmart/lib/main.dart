@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // لیست صفحات
   final List<Widget> _pages = [
-    Center(child: Text('Home Page')), // صفحه اصلی
+    HomePage(), // صفحه اصلی (شامل کارت گرافیکی)
     Center(child: Text('Search Page')), // صفحه جستجو
     Center(child: Text('Profile Page')), // صفحه پروفایل
   ];
@@ -62,12 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 213, 232, 98), // رنگ سربرگ
               ),
-              child: Text(
-                'Menu Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+              child: Center(
+                child: Text('Solar smart Risskovteknik Demo',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 20, 5, 81),
+                      fontSize: 16,
+                    )),
               ),
             ),
             ListTile(
@@ -129,6 +129,127 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Profile', // متن پروفایل
           ),
         ],
+      ),
+    );
+  }
+}
+
+// صفحه اصلی (Home Page) شامل کارت گرافیکی
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Card(
+          elevation: 8, // سایه کارت
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15), // گوشه‌های گرد کارت
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 213, 232, 98),
+                  Color.fromARGB(255, 213, 232, 98),
+                ], // گرادیانت
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              children: [
+                // ستون اول
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    color: Colors.black.withOpacity(0.2), // پس‌زمینه نیمه‌شفاف
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.bolt,
+                          size: 50,
+                          color: Colors.yellowAccent,
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Energy',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '50 kWh',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // ستون دوم
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Solar Efficiency',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'This week: 85%',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                          ),
+                        ),
+                        LinearProgressIndicator(
+                          value: 0.85,
+                          backgroundColor: Colors.white24,
+                          color: Colors.yellowAccent,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Min: 75%',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              'Max: 95%',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
