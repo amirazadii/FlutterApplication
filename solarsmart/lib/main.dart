@@ -35,7 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 248, 248, 248),
       appBar: AppBar(
-        leading: Icon(Icons.menu),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer(); // باز کردن ساید منو
+            },
+          ),
+        ),
         title: Text('Solar Smart'),
         actions: [
           Icon(Icons.notifications),
@@ -47,11 +54,60 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         backgroundColor: const Color.fromARGB(255, 248, 248, 248),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 213, 232, 98), // رنگ سربرگ
+              ),
+              child: Text(
+                'Menu Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              onTap: () {
+                setState(() {
+                  _currentIndex = 0; // تغییر صفحه به Home
+                });
+                Navigator.pop(context); // بستن منو
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.search),
+              title: Text('Search'),
+              onTap: () {
+                setState(() {
+                  _currentIndex = 1; // تغییر صفحه به Search
+                });
+                Navigator.pop(context); // بستن منو
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text('Profile'),
+              onTap: () {
+                setState(() {
+                  _currentIndex = 2; // تغییر صفحه به Profile
+                });
+                Navigator.pop(context); // بستن منو
+              },
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: _pages[_currentIndex], // محتوای صفحه فعلی
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromARGB(255, 191, 207, 90),
+        backgroundColor: Color.fromARGB(255, 213, 232, 98),
         selectedItemColor: Colors.white,
         currentIndex: _currentIndex, // اندیس آیتم انتخاب‌شده
         onTap: (index) {
